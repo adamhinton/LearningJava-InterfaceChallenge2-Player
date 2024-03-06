@@ -19,13 +19,13 @@ interface ISaveable{
 
 class Player implements ISaveable{
     private String name;
-    private String weapon = "sword";
+    private String weapon = "Sword";
     private int hitPoints;
     private int strength;
 
     public Player(String name, int hitPoints, int strength) {
         this.name = name;
-        this.weapon = "sword";
+        this.weapon = "Sword";
         this.hitPoints = hitPoints;
         this.strength = strength;
     }
@@ -92,13 +92,70 @@ class Player implements ISaveable{
 
     @Override
     public String toString() {
-        return String.format("Monster{name='%s', hitPoints=%d, strength=%d}", name, hitPoints, strength);
+        return String.format("Player{name='%s', hitPoints=%d, strength=%d}, weapon='%s'", name, hitPoints, strength, weapon);
 
     }
+
 }
 
 
 
-class Monster{
+class Monster implements ISaveable{
 
+    private String name;
+    private int hitPoints;
+    private int strength;
+
+    public Monster(String name, int hitPoints, int strength) {
+        this.name = name;
+        this.hitPoints = hitPoints;
+        this.strength = strength;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    @Override
+    public List<String> write() {
+        List<String> solution = new ArrayList<String>();
+
+        solution.add(name);
+        solution.add("" + hitPoints);
+        solution.add("" + strength);
+
+        return solution;
+    }
+
+
+    @Override
+    public void read(List<String> myList) {
+
+        if (myList == null){
+            return;
+        }
+
+        if(myList.isEmpty()){
+            return;
+        }
+
+        name = myList.get(0);
+        hitPoints = Integer.parseInt(myList.get(1));
+        strength = Integer.parseInt(myList.get(2));
+    }
+
+
+        @Override
+    public String toString() {
+        return String.format("Monster{name='%s', hitPoints=%d, strength=%d}", name, hitPoints, strength);
+
+    }
 }
